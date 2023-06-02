@@ -36,5 +36,6 @@
 // việc cần làm: 
 
 - setup tài khoản emailJS ( lưu ý cần lấy đc các key cần thiết - trong common)
+  + chú ý setup cac key trong thempleteEmail trung voi key trong param truyền lên.
 
 - setup mockAPI ( đặt tên collection là "account" hoặc thay đổi tên service khi gọi API tương ứng )
