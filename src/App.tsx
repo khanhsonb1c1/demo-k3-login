@@ -7,6 +7,7 @@ import "bootstrap/js/index.esm";
 import "bootstrap/js/index.umd";
 import UpdateUser from "./features/update";
 import HomePage from "./features/home";
+import Login from "./features/login";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/update-user" element={<UpdateUser />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

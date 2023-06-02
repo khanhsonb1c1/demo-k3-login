@@ -28,9 +28,6 @@ type PropsType = PropsWithChildren<{
 }>;
 
 function ModalComponent({ title, isShow, code, onUpdate, onSuccess }: PropsType) {
-  useEffect(() => {
-    console.log(code, "code");
-  });
 
   const onChangeInput = (e: any) => {
     if (e == code) {

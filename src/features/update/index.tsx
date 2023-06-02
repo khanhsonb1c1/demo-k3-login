@@ -5,10 +5,11 @@ import {
   MDBContainer,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { account } from "../../axiosconfig";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   full_name: string;
@@ -21,16 +22,19 @@ function UpdateUser() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>(); // react hook form
 
   const [email, setEmail] = useState("");
-  const [form, setForm] = useState({} as Inputs);
   const [avatar, setAvatar] = useState(
     "https://res.cloudinary.com/dionk3ia2/image/upload/v1681227135/blogger/song/sseihiy9wg0urcyoxzbh.jpg?fbclid=IwAR38LcqAwgTuCNB3LX7PoKVnopxPMwHCLMbv2bDNCC5wyglPmDxqgt_lZlM"
   );
   
+  const navigate = useNavigate();
+
+  // lấy id trong localStorage
   const id = localStorage.getItem("id_account");
 
+  // open camera
   const [isOpenCamera, setOpenCamera] = useState(false);
 
   let videoRef = useRef(null as any);
@@ -39,6 +43,10 @@ function UpdateUser() {
 
   //$ methods
 
+  useLayoutEffect(() => {
+    handleFetch();
+  }, []);
+
 
   const handleFetch = () => {
     account.get(`/account/${id}`).then(({ data }) => {
@@ -46,20 +54,20 @@ function UpdateUser() {
       setAvatar(data.avata_url)
       setEmail(data.email);
     }).catch((err)=> {
-
+      // thêm lỗi
     });
   };
 
-  useLayoutEffect(() => {
-    handleFetch();
-  }, []);
+  
 
+  // choose file from computer
   const handleUpload = (event: any) => {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
       setAvatar(selectedFile);
 
+      // xử lý hiển thị ảnh (preview)
       const reader = new FileReader();
       reader.onloadend = () => {
         setAvatar(reader.result as string);
@@ -69,7 +77,6 @@ function UpdateUser() {
   };
 
   const handleCaptureImage = () => {
-    console.log("nsdh");
     const video = videoRef.current;
 
     const canvas = canvasRef.current;
@@ -85,9 +92,12 @@ function UpdateUser() {
 
   const handleOpenCamera = async () => {
     setOpenCamera(true);
+
+    // xử lý bật camera
     try {
       const constraints = { video: true };
 
+      // của trình duyệt
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
       if (videoRef.current) {
@@ -119,6 +129,10 @@ function UpdateUser() {
       full_name: data.full_name,
       address: data.address,
       avata_url: avatar,
+    }).then((res) => {
+      navigate("/")
+    }).catch((err) => {
+      //
     });
   };
 
@@ -164,6 +178,10 @@ function UpdateUser() {
                         required: true,
                         maxLength: 50,
                         minLength: 3,
+                        pattern: {
+                          value: /^[^\d]+$/,
+                          message: 'Input should not contain numbers',
+                        },
                       })}
                     />
                     <label htmlFor="formControlLg" className="form-label">
