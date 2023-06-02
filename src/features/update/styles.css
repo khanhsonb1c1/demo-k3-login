@@ -1,0 +1,58 @@
+.avatar {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: linear-gradient(69deg, rgba(250, 34, 241, 1) 0%, rgba(255, 250, 6, 1) 100%);
+    object-fit: cover;
+}
+
+#btn-up {
+    display: inline-block;
+    background-color: indigo !important;
+    color: white;
+    padding: 0.3em 0.5em;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.btn-open {
+    display: inline-block;
+    background-color: green !important;
+    color: white;
+    padding: 0.3em 0.5em;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-left: 1em;
+    border: none;
+}
+
+.wrap-video {
+    z-index: 1000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #33333325;
+
+
+}
+
+.video {
+    z-index: 100000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
